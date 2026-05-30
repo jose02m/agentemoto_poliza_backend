@@ -1,0 +1,98 @@
+# Python
+
+**pycache**/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+
+venv/
+.venv/
+env/
+ENV/
+
+# Variables de entorno
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Base de datos SQLite
+
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+
+*.log
+
+# Pytest
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Mypy
+
+.mypy_cache/
+
+# Ruff
+
+.ruff_cache/
+
+# VS Code
+
+.vscode/
+
+# JetBrains
+
+.idea/
+
+# Sistema operativo
+
+.DS_Store
+Thumbs.db
+
+# Node / React / Vite
+
+node_modules/
+
+dist/
+build/
+
+.vite/
+
+# NPM
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Coverage frontend
+
+coverage/
+
+# Archivos temporales
+
+*.tmp
+*.temp
+
+# Entregables
+
+*.zip
+
+# Historial IA (NO ignorar)
+
+# ai_history/
+
+# Documentación requerida por la prueba (NO ignorar)
+
+# spec.md
+
+# README.md
+
+# code_review.md
