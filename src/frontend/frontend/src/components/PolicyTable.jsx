@@ -28,6 +28,29 @@ function formatDate(date) {
   });
 }
 
+function getPriority(classification) {
+  const priorities = {
+    renewable: {
+      label: "Alta",
+      className: "high",
+    },
+    upcoming: {
+      label: "Media",
+      className: "medium",
+    },
+    expired: {
+      label: "Baja",
+      className: "low",
+    },
+    active: {
+      label: "Normal",
+      className: "normal",
+    },
+  };
+
+  return priorities[classification] || priorities.active;
+}
+
 function PolicyTable({ policies, onManage, onRenew }) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
@@ -79,6 +102,7 @@ function PolicyTable({ policies, onManage, onRenew }) {
               <th>Aseguradora</th>
               <th>Vencimiento</th>
               <th>Estado</th>
+              <th>Prioridad</th>
               <th>Gestiones</th>
               <th>Última gestión</th>
               <th>Acciones</th>
@@ -108,7 +132,9 @@ function PolicyTable({ policies, onManage, onRenew }) {
                 </td>
 
                 <td>
-                  <span className="count-pill">{policy.interactions_count}</span>
+                  <span className={`priority-tag ${getPriority(policy.classification).className}`}>
+                    {getPriority(policy.classification).label}
+                  </span>
                 </td>
 
                 <td className="last-note">

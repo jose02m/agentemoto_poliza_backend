@@ -43,43 +43,53 @@ function Dashboard() {
   if (error) return <p className="error-message">{error}</p>;
   if (!dashboard) return <p className="loading-message">Cargando...</p>;
 
-const policies = [
-  ...dashboard.renewable,
-  ...dashboard.upcoming,
-  ...dashboard.expired,
-  ...dashboard.active,
-].sort((a, b) => {
-  const priority = {
-    renewable: 1,
-    upcoming: 2,
-    expired: 3,
-    active: 4,
-  };
+  const policies = [
+    ...dashboard.renewable,
+    ...dashboard.upcoming,
+    ...dashboard.expired,
+    ...dashboard.active,
+  ].sort((a, b) => {
+    const priority = {
+      renewable: 1,
+      upcoming: 2,
+      expired: 3,
+      active: 4,
+    };
 
-  if (priority[a.classification] !== priority[b.classification]) {
-    return priority[a.classification] - priority[b.classification];
-  }
+    if (priority[a.classification] !== priority[b.classification]) {
+      return priority[a.classification] - priority[b.classification];
+    }
 
-  return new Date(a.expiration_date) - new Date(b.expiration_date);
-});
+    return new Date(a.expiration_date) - new Date(b.expiration_date);
+  });
+
+  const today = new Date().toLocaleDateString("es-CO", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
 
   return (
     <main className="app-shell">
-      <section className="hero-panel">
+      <header className="compact-header">
         <div>
-          <span className="eyebrow">Agentemotor · Gestión de pólizas</span>
-          <h1>Hola, María 👋</h1>
-          <p>
-            Visualiza, prioriza y gestiona renovaciones dentro de la ventana
-            crítica de 30 días.
-          </p>
+          <span className="app-title">Agentemotor · Gestión de pólizas</span>
+
+          <div className="user-header">
+            <div className="user-avatar">MG</div>
+
+            <div>
+              <h1>María Gómez</h1>
+              <p>Asesora de seguros</p>
+            </div>
+          </div>
         </div>
 
-        <div className="hero-pill">
-          <span>Hoy</span>
-          <strong>{new Date().toLocaleDateString("es-CO")}</strong>
+        <div className="date-pill">
+          <span>📅</span>
+          <strong>{today}</strong>
         </div>
-      </section>
+      </header>
 
       <SummaryCards summary={dashboard.summary} />
 
