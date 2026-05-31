@@ -1,9 +1,61 @@
 from datetime import date, timedelta
+import random
 
 from app.db.database import Base, engine, SessionLocal
 from app.models.client import Client
 from app.models.policy import Policy
 from app.models.interaction import Interaction
+
+
+CLIENT_NAMES = [
+    "Juan Pérez",
+    "Ana Torres",
+    "Carlos Gómez",
+    "Laura Díaz",
+    "Andrés Rojas",
+    "María López",
+    "Pedro Sánchez",
+    "Luisa Martínez",
+    "Camilo Herrera",
+    "Diana Gómez",
+    "Felipe Castro",
+    "Natalia Ruiz",
+    "José Ramírez",
+    "Paula Mendoza",
+    "Miguel León",
+    "Valentina Silva",
+    "Ricardo Ortiz",
+    "Juliana Torres",
+    "Sergio Moreno",
+    "Tatiana Vega",
+    "Daniel Parra",
+    "Sandra Gil",
+    "Jorge Salazar",
+    "Mónica Pinto",
+    "Kevin Romero"
+]
+
+INSURERS = [
+    "Sura",
+    "Bolívar",
+    "Allianz",
+    "Mapfre",
+    "Liberty"
+]
+
+POLICY_TYPES = [
+    "Auto",
+    "Hogar",
+    "Vida"
+]
+
+INTERACTION_RESULTS = [
+    "contacted",
+    "no_answer",
+    "interested",
+    "renewed",
+    "not_interested"
+]
 
 
 def seed_database():
@@ -12,62 +64,76 @@ def seed_database():
     db = SessionLocal()
 
     try:
-        existing_clients = db.query(Client).count()
-
-        if existing_clients > 0:
-            print("Seed skipped: database already has data.")
+        if db.query(Client).count() > 0:
+            print("Seed skipped: database already contains data.")
             return
 
         today = date.today()
 
-        client_1 = Client(
-            name="Juan Pérez",
-            phone="3001234567",
-            email="juan@example.com",
-        )
+        expiration_offsets = [
+            # Próximas a vencer
+            3, 5, 8, 10, 12, 18, 22, 29,
 
-        client_2 = Client(
-            name="Ana Torres",
-            phone="3019876543",
-            email="ana@example.com",
-        )
+            # Renovables
+            -1, -3, -5, -8, -10, -15, -20, -25, -30,
 
-        client_3 = Client(
-            name="Carlos Gómez",
-            phone="3025557788",
-            email="carlos@example.com",
-        )
+            # Fuera de ventana
+            -31, -35, -40, -45, -50, -60, -75, -90
+        ]
 
-        policy_1 = Policy(
-            client=client_1,
-            policy_type="Auto",
-            insurer="Sura",
-            expiration_date=today + timedelta(days=10),
-            status="active",
-        )
+        created_policies = []
 
-        policy_2 = Policy(
-            client=client_2,
-            policy_type="Auto",
-            insurer="Bolívar",
-            expiration_date=today - timedelta(days=15),
-            status="active",
-        )
+        for index, name in enumerate(CLIENT_NAMES):
 
-        policy_3 = Policy(
-            client=client_3,
-            policy_type="Auto",
-            insurer="Allianz",
-            expiration_date=today - timedelta(days=45),
-            status="active",
-        )
+            client = Client(
+                name=name,
+                phone=f"300000{1000 + index}",
+                email=f"cliente{index + 1}@example.com"
+            )
 
-        db.add_all([client_1, client_2, client_3])
-        db.add_all([policy_1, policy_2, policy_3])
+            policy = Policy(
+                client=client,
+                policy_type=random.choice(POLICY_TYPES),
+                insurer=random.choice(INSURERS),
+                expiration_date=today + timedelta(days=expiration_offsets[index]),
+                status="active"
+            )
+
+            db.add(client)
+            db.add(policy)
+
+            created_policies.append(policy)
+
+        db.commit()
+
+        # Crear interacciones sobre algunas pólizas
+        for policy in random.sample(created_policies, 10):
+
+            interactions_count = random.randint(1, 3)
+
+            for _ in range(interactions_count):
+
+                interaction = Interaction(
+                    policy_id=policy.id,
+                    result=random.choice(INTERACTION_RESULTS),
+                    note=random.choice([
+                        "Cliente interesado en renovar.",
+                        "Solicita nueva cotización.",
+                        "No respondió la llamada.",
+                        "Llamar nuevamente la próxima semana.",
+                        "Comparando opciones con otra aseguradora.",
+                        "Pendiente envío de documentos.",
+                        "Renovación en proceso."
+                    ])
+                )
+
+                db.add(interaction)
 
         db.commit()
 
         print("Seed completed successfully.")
+        print(f"Clients created: {len(CLIENT_NAMES)}")
+        print(f"Policies created: {len(CLIENT_NAMES)}")
 
     finally:
         db.close()
