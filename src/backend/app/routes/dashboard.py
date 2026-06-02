@@ -7,7 +7,6 @@ from app.services.policy_classifier import classify_policy
 
 router = APIRouter()
 
-
 @router.get("/dashboard")
 def get_dashboard(db: Session = Depends(get_db)):
     policies = (
@@ -20,6 +19,13 @@ def get_dashboard(db: Session = Depends(get_db)):
     )
 
     dashboard = {
+        "summary": {
+            "upcoming": 0,
+            "renewable": 0,
+            "expired": 0,
+            "active": 0,
+            "total": 0,
+        },
         "upcoming": [],
         "renewable": [],
         "expired": [],
@@ -62,5 +68,7 @@ def get_dashboard(db: Session = Depends(get_db)):
         }
 
         dashboard[classification].append(policy_data)
+        dashboard["summary"][classification] += 1
+        dashboard["summary"]["total"] += 1
 
     return dashboard
