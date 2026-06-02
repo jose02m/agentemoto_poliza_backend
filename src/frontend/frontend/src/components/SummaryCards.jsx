@@ -1,25 +1,48 @@
 function SummaryCards({ summary }) {
+  const cards = [
+    {
+      title: "Renovables",
+      value: summary.renewable,
+      description: "Prioridad alta",
+      className: "orange",
+      icon: "⏱",
+    },
+    {
+      title: "Próximas a vencer",
+      value: summary.upcoming,
+      description: "Dentro de 30 días",
+      className: "yellow",
+      icon: "📅",
+    },
+    {
+      title: "Fuera de ventana",
+      value: summary.expired,
+      description: "Requiere atención",
+      className: "red",
+      icon: "⚠",
+    },
+    {
+      title: "Total pólizas",
+      value: summary.total,
+      description: "Cartera visible",
+      className: "purple",
+      icon: "👥",
+    },
+  ];
+
   return (
     <section className="summary-grid">
-      <article className="summary-card priority">
-        <span>Renovables</span>
-        <strong>{summary.renewable}</strong>
-      </article>
+      {cards.map((card) => (
+        <article key={card.title} className={`metric-card ${card.className}`}>
+          <div className="metric-icon">{card.icon}</div>
 
-      <article className="summary-card warning">
-        <span>Próximas a vencer</span>
-        <strong>{summary.upcoming}</strong>
-      </article>
-
-      <article className="summary-card danger">
-        <span>Fuera de ventana</span>
-        <strong>{summary.expired}</strong>
-      </article>
-
-      <article className="summary-card">
-        <span>Total</span>
-        <strong>{summary.total}</strong>
-      </article>
+          <div>
+            <span>{card.title}</span>
+            <strong>{card.value}</strong>
+            <p>{card.description}</p>
+          </div>
+        </article>
+      ))}
     </section>
   );
 }

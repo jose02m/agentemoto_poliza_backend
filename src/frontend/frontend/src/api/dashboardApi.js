@@ -10,7 +10,7 @@ export async function getDashboard() {
 export async function createInteraction(policyId, payload) {
   const response = await axios.post(
     `${API_BASE_URL}/policies/${policyId}/interactions`,
-    payload
+    payload,
   );
 
   return response.data;
@@ -21,7 +21,7 @@ export async function renewPolicy(policyId, expirationDate) {
     `${API_BASE_URL}/policies/${policyId}/renew`,
     {
       expiration_date: expirationDate,
-    }
+    },
   );
 
   return response.data;
