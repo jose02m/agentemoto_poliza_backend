@@ -1,13 +1,9 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.db.database import Base, engine
-from app.models.client import Client
-from app.models.policy import Policy
-from app.models.interaction import Interaction
-from app.routes.dashboard import router as dashboard_router
-from app.routes.interactions import router as interactions_router
-from app.routes.policies import router as policies_router
-from fastapi.middleware.cors import CORSMiddleware
+import app.models
+from app.routes import api_router
 
 Base.metadata.create_all(bind=engine)
 
@@ -26,10 +22,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(dashboard_router)
-app.include_router(interactions_router)
-app.include_router(policies_router)
+app.include_router(api_router)
 
 @app.get("/")
-def health():
+def heello():
     return {"status": "ok"}
