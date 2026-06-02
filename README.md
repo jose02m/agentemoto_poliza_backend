@@ -68,37 +68,44 @@ Porque no aportaban valor directo al problema principal planteado.
 
 ### Backend
 
-```cd src/backend
+```
+cd src/backend
 pip install -r requirements.txt
 python -m app.seed
 uvicorn app.main:app --reload
 ```
 
-```Backend:
+```
+Backend:
 http://127.0.0.1:8000
 ```
 
-```Swagger:
+```
+Swagger:
 http://127.0.0.1:8000/docs
 ```
 ---
 
 ### Frontend
 
-```cd src/frontend
+```
+cd src/frontend
 npm install
 npm run dev
 ```
 
-```Frontend:
+```
+Frontend:
 http://localhost:5173
 ```
+
 ---
 
 ## Tests
 
 Desde la raíz del proyecto:
-```pytest
+```
+pytest
 ```
 ---
 
