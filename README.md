@@ -71,32 +71,35 @@ Porque no aportaban valor directo al problema principal planteado.
 ```cd src/backend
 pip install -r requirements.txt
 python -m app.seed
-uvicorn app.main:app --reload```
+uvicorn app.main:app --reload
+```
 
 ```Backend:
-http://127.0.0.1:8000```
+http://127.0.0.1:8000
+```
 
 ```Swagger:
-http://127.0.0.1:8000/docs```
-
+http://127.0.0.1:8000/docs
+```
 ---
 
 ### Frontend
 
 ```cd src/frontend
 npm install
-npm run dev```
+npm run dev
+```
 
 ```Frontend:
-http://localhost:5173```
-
+http://localhost:5173
+```
 ---
 
 ## Tests
 
 Desde la raíz del proyecto:
-```pytest```
-
+```pytest
+```
 ---
 
 ## Reflexión
