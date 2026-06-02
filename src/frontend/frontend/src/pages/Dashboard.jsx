@@ -43,12 +43,25 @@ function Dashboard() {
   if (error) return <p className="error-message">{error}</p>;
   if (!dashboard) return <p className="loading-message">Cargando...</p>;
 
-  const policies = [
-    ...dashboard.renewable,
-    ...dashboard.upcoming,
-    ...dashboard.expired,
-    ...dashboard.active,
-  ];
+const policies = [
+  ...dashboard.renewable,
+  ...dashboard.upcoming,
+  ...dashboard.expired,
+  ...dashboard.active,
+].sort((a, b) => {
+  const priority = {
+    renewable: 1,
+    upcoming: 2,
+    expired: 3,
+    active: 4,
+  };
+
+  if (priority[a.classification] !== priority[b.classification]) {
+    return priority[a.classification] - priority[b.classification];
+  }
+
+  return new Date(a.expiration_date) - new Date(b.expiration_date);
+});
 
   return (
     <main className="app-shell">

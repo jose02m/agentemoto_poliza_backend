@@ -31,7 +31,6 @@ function PolicyTable({ policies, onManage, onRenew }) {
     <section className="table-card">
       <div className="table-header">
         <div>
-          <span className="eyebrow">Trabajo pendiente</span>
           <h2>Pólizas</h2>
         </div>
 
@@ -61,7 +60,9 @@ function PolicyTable({ policies, onManage, onRenew }) {
               <tr key={policy.id}>
                 <td>
                   <div className="client-cell">
-                    <span className="avatar">{getInitials(policy.client.name)}</span>
+                    <span className="avatar">
+                      {getInitials(policy.client.name)}
+                    </span>
                     <strong>{policy.client.name}</strong>
                   </div>
                 </td>
@@ -79,7 +80,9 @@ function PolicyTable({ policies, onManage, onRenew }) {
                 </td>
 
                 <td>
-                  <span className="count-pill">{policy.interactions_count}</span>
+                  <span className="count-pill">
+                    {policy.interactions_count}
+                  </span>
                 </td>
 
                 <td className="last-note">
@@ -90,11 +93,19 @@ function PolicyTable({ policies, onManage, onRenew }) {
 
                 <td>
                   <div className="action-buttons">
-                    <button className="btn-outline" onClick={() => onManage(policy)}>
+                    <button
+                      className="btn-outline"
+                      onClick={() => onManage(policy)}
+                    >
+                      <span>💬</span>
                       Gestionar
                     </button>
 
-                    <button className="btn-primary" onClick={() => onRenew(policy)}>
+                    <button
+                      className="btn-primary"
+                      onClick={() => onRenew(policy)}
+                    >
+                      <span>🔄</span>
                       Renovar
                     </button>
                   </div>

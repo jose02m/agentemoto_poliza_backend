@@ -112,7 +112,7 @@ textarea {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px;
-  margin: -44px 28px 28px;
+  margin: 24px 28px 28px;
   position: relative;
   z-index: 2;
 }
@@ -256,10 +256,10 @@ thead {
 th {
   padding: 20px 18px;
   color: #5b21b6;
-  font-size: 12px;
+  font-size: 13px;
   text-align: left;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 td {
@@ -396,7 +396,17 @@ tbody tr:hover {
   font-size: 12px;
   font-weight: 900;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
   transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+}
+
+.btn-outline span,
+.btn-primary span {
+  font-size: 13px;
+  line-height: 1;
 }
 
 .btn-outline:hover,
@@ -420,6 +430,7 @@ tbody tr:hover {
   border: none;
   box-shadow: 0 12px 24px rgba(109, 40, 217, 0.22);
 }
+
 
 .modal-backdrop {
   position: fixed;
