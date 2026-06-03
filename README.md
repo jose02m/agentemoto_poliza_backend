@@ -1,5 +1,11 @@
 # Agentemotor - Gestión de Renovaciones de Pólizas
 
+## Video del SPEC
+
+Enlace: 
+
+---
+
 ## Descripción
 
 Aplicación web desarrollada para ayudar a asesores comerciales a identificar pólizas próximas a vencer, gestionar seguimientos y registrar renovaciones.
