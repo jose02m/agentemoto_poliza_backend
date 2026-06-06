@@ -2,6 +2,7 @@ from datetime import date, timedelta
 import random
 
 from app.db.database import Base, engine, SessionLocal
+from app.models.advisor import Advisor
 from app.models.client import Client
 from app.models.policy import Policy
 from app.models.interaction import Interaction
@@ -32,7 +33,7 @@ CLIENT_NAMES = [
     "Sandra Gil",
     "Jorge Salazar",
     "Mónica Pinto",
-    "Kevin Romero"
+    "Kevin Romero",
 ]
 
 INSURERS = [
@@ -40,13 +41,13 @@ INSURERS = [
     "Bolívar",
     "Allianz",
     "Mapfre",
-    "Liberty"
+    "Liberty",
 ]
 
 POLICY_TYPES = [
     "Auto",
     "Hogar",
-    "Vida"
+    "Vida",
 ]
 
 INTERACTION_RESULTS = [
@@ -54,7 +55,17 @@ INTERACTION_RESULTS = [
     "no_answer",
     "interested",
     "renewed",
-    "not_interested"
+    "not_interested",
+]
+
+INTERACTION_NOTES = [
+    "Cliente interesado en renovar.",
+    "Solicita nueva cotización.",
+    "No respondió la llamada.",
+    "Llamar nuevamente la próxima semana.",
+    "Comparando opciones con otra aseguradora.",
+    "Pendiente envío de documentos.",
+    "Renovación en proceso.",
 ]
 
 
@@ -64,11 +75,20 @@ def seed_database():
     db = SessionLocal()
 
     try:
-        if db.query(Client).count() > 0:
+        if db.query(Advisor).count() > 0:
             print("Seed skipped: database already contains data.")
             return
 
         today = date.today()
+
+        advisor = Advisor(
+            name="María Gómez",
+            email="maria@agentemotor.com",
+            password_hash="temporary_hash",
+        )
+
+        db.add(advisor)
+        db.flush()
 
         expiration_offsets = [
             # Próximas a vencer
@@ -78,17 +98,17 @@ def seed_database():
             -1, -3, -5, -8, -10, -15, -20, -25, -30,
 
             # Fuera de ventana
-            -31, -35, -40, -45, -50, -60, -75, -90
+            -31, -35, -40, -45, -50, -60, -75, -90,
         ]
 
         created_policies = []
 
         for index, name in enumerate(CLIENT_NAMES):
-
             client = Client(
+                advisor_id=advisor.id,
                 name=name,
                 phone=f"300000{1000 + index}",
-                email=f"cliente{index + 1}@example.com"
+                email=f"cliente{index + 1}@example.com",
             )
 
             policy = Policy(
@@ -96,7 +116,7 @@ def seed_database():
                 policy_type=random.choice(POLICY_TYPES),
                 insurer=random.choice(INSURERS),
                 expiration_date=today + timedelta(days=expiration_offsets[index]),
-                status="active"
+                status="active",
             )
 
             db.add(client)
@@ -106,25 +126,14 @@ def seed_database():
 
         db.commit()
 
-        # Crear interacciones sobre algunas pólizas
         for policy in random.sample(created_policies, 10):
-
             interactions_count = random.randint(1, 3)
 
             for _ in range(interactions_count):
-
                 interaction = Interaction(
                     policy_id=policy.id,
                     result=random.choice(INTERACTION_RESULTS),
-                    note=random.choice([
-                        "Cliente interesado en renovar.",
-                        "Solicita nueva cotización.",
-                        "No respondió la llamada.",
-                        "Llamar nuevamente la próxima semana.",
-                        "Comparando opciones con otra aseguradora.",
-                        "Pendiente envío de documentos.",
-                        "Renovación en proceso."
-                    ])
+                    note=random.choice(INTERACTION_NOTES),
                 )
 
                 db.add(interaction)
@@ -132,6 +141,7 @@ def seed_database():
         db.commit()
 
         print("Seed completed successfully.")
+        print("Advisor created: María Gómez")
         print(f"Clients created: {len(CLIENT_NAMES)}")
         print(f"Policies created: {len(CLIENT_NAMES)}")
 
