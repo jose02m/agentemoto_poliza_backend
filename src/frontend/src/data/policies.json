@@ -1,0 +1,10 @@
+[
+  {"id":1,"name":"Juan Pérez","initials":"JP","phone":"300 000 1000","email":"juan@email.com","type":"Auto","insurer":"Sura","due":"18 ago 2026","days":2,"status":"renewable","touches":2,"note":"Solicita nueva cotización"},
+  {"id":2,"name":"Ana Torres","initials":"AT","phone":"300 000 1001","email":"ana@email.com","type":"Auto","insurer":"Allianz","due":"22 ago 2026","days":2,"status":"upcoming","touches":1,"note":"Llamar mañana a las 10:00"},
+  {"id":3,"name":"Carlos Gómez","initials":"CG","phone":"300 000 1002","email":"carlos@email.com","type":"Hogar","insurer":"Bolívar","due":"12 ago 2026","days":8,"status":"renewable","touches":3,"note":"Pendiente envío de documentos"},
+  {"id":4,"name":"Laura Díaz","initials":"LD","phone":"300 000 1003","email":"laura@email.com","type":"Vida","insurer":"Mapfre","due":"05 jul 2026","days":46,"status":"expired","touches":2,"note":"Comparando con otra aseguradora"},
+  {"id":5,"name":"Andrés Rojas","initials":"AR","phone":"300 000 1004","email":"andres@email.com","type":"Auto","insurer":"Sura","due":"28 ago 2026","days":8,"status":"upcoming","touches":0,"note":"Sin gestión registrada"},
+  {"id":6,"name":"María López","initials":"ML","phone":"300 000 1005","email":"maria@email.com","type":"Hogar","insurer":"Liberty","due":"14 sep 2026","days":25,"status":"upcoming","touches":1,"note":"Cliente interesado en renovar"},
+  {"id":7,"name":"Pedro Sánchez","initials":"PS","phone":"300 000 1006","email":"pedro@email.com","type":"Auto","insurer":"Allianz","due":"21 jul 2026","days":30,"status":"renewable","touches":4,"note":"Último día de ventana comercial"},
+  {"id":8,"name":"Luisa Martínez","initials":"LM","phone":"300 000 1007","email":"luisa@email.com","type":"Vida","insurer":"Bolívar","due":"30 nov 2026","days":102,"status":"active","touches":0,"note":"Sin gestión registrada"}
+]
